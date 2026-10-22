@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ổ cắm Lumi</title>
+<style>
+:root{color-scheme:dark;--bg:#151519;--panel:#1b1b20;--line:#303037;--muted:#9797a7;--text:#e2e2e8;--accent:#dec78c;--good:#86bd9c;--bad:#f1a0a0}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}main{max-width:1150px;margin:auto;padding:18px}header,.row{display:flex;align-items:center;justify-content:space-between;gap:12px}h1{font-size:20px;letter-spacing:-.3px;margin:0}h2{font-size:15px;margin:0}p{margin:5px 0}.muted,small{color:var(--muted)}.status{color:var(--good)}.error{color:var(--bad)}.notice{min-height:22px;font-size:13px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.metric{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px}.value{font-size:27px;font-variant-numeric:tabular-nums;line-height:1.5;white-space:nowrap}.unit{font-size:14px;color:var(--muted);margin-left:4px}button,select{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 12px;cursor:pointer;min-height:38px}button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{cursor:wait;opacity:.5}button[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}#power{display:flex;align-items:center;gap:9px}#power .track{width:38px;height:22px;background:#555563;border-radius:20px;padding:3px;display:block}#power .dot{width:16px;height:16px;background:#fff;border-radius:50%;display:block;transition:transform .15s}#power[aria-checked=true] .track{background:#578d6a}#power[aria-checked=true] .dot{transform:translateX(16px)}.chartbox{border:1px solid var(--line);border-radius:10px;padding:12px}.chart-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:12px 0}.chart-tools select{margin-left:auto}.chartLegend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;font-variant-numeric:tabular-nums}.chartarea{height:190px;width:100%;display:block}#chartDetail{font-variant-numeric:tabular-nums;min-height:22px}.chartFooter{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.events{margin-top:18px}.event{display:grid;grid-template-columns:145px 1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}.event time{color:var(--muted);font-variant-numeric:tabular-nums}.tag{color:var(--accent)}#events{max-height:190px;overflow:auto;margin-top:6px}#older{display:none;margin-top:8px}footer{font-size:12px;color:var(--muted);margin-top:14px}.loading{opacity:.65}@media(max-width:520px){main{padding:12px}.metrics{gap:6px}.metric{padding:8px}.value{font-size:22px}.event{grid-template-columns:90px 1fr;gap:3px 9px}.event .tag{grid-column:2}.chart-tools button{padding:6px 10px}.chart-tools select{max-width:140px}.chartarea{height:175px}h1{font-size:18px}}
+</style>
+<style>
+.host{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--panel)}.host a{color:var(--accent);white-space:nowrap}.host a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.host small{display:block;margin-top:5px}
+</style>
+<main>
+<header><div><h1>Ổ cắm Lumi</h1><p><span id="powerState">Đang đọc…</span> <span class="muted">·</span> <span id="online" class="muted">Chưa rõ kết nối</span></p></div><button id="power" role="switch" aria-checked="false" aria-label="Bật hoặc tắt ổ cắm" disabled><span class="track"><span class="dot"></span></span><span id="switchLabel">Chờ</span></button></header>
+<p id="notice" class="notice muted" role="status" aria-live="polite">Đang đọc mẫu mới nhất…</p>
+<section class="host" aria-label="Máy nixostail"><div class="row"><div><strong>nixostail</strong> · <span id="hostState" class="muted" role="status">Chưa rõ</span></div><a href="https://power.huyab.click/" target="_blank" rel="noopener noreferrer">Mở Power ↗</a></div><small id="hostChecked">Chờ kiểm tra từ pipi…</small><small>Shutdown trong Power trước khi tắt ổ cắm. Mất kết nối chưa xác nhận máy đã tắt an toàn.</small></section>
+<div class="metrics"><div class="metric"><small>Điện áp</small><div class="value"><span id="voltage_v">—</span><span class="unit">V</span></div></div><div class="metric"><small>Dòng điện</small><div class="value"><span id="current_a">—</span><span class="unit">A</span></div></div><div class="metric"><small>Công suất</small><div class="value"><span id="power_w">—</span><span class="unit">W</span></div></div></div>
+<section class="chartbox" aria-label="Biểu đồ lịch sử"><div class="row"><h2>Lịch sử thông số</h2><small id="sampleCount"></small></div><div class="chart-tools"><button data-metric="power_w" aria-pressed="true">W</button><button data-metric="voltage_v" aria-pressed="false">V</button><button data-metric="current_a" aria-pressed="false">A</button><button data-metric="all" aria-pressed="false">Cả 3</button><select id="range" aria-label="Khoảng thời gian"><option value="1h">1 giờ</option><option value="24h" selected>24 giờ</option><option value="7d">7 ngày</option><option value="30d">30 ngày</option></select></div><div id="chartLegend" class="chartLegend"></div><p id="chartDetail" class="muted">Đang tải lịch sử…</p><svg id="chart" class="chartarea" role="img" aria-label="Biểu đồ công suất theo thời gian"></svg><div class="chartFooter"><span id="chartFrom"></span><span id="chartTo"></span></div><small id="chartNote"></small></section>
+<section class="events"><div class="row"><h2>Lịch sử bật / tắt</h2><small>Giữ 30 ngày</small></div><div id="events" aria-live="polite"></div><button id="older">Xem cũ hơn</button></section>
+<footer id="updated">Lấy mẫu mỗi 10 giây trên pipi.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id), units={voltage_v:'V',current_a:'A',power_w:'W'}, names={voltage_v:'Điện áp',current_a:'Dòng điện',power_w:'Công suất'};
+let latest=null,busy=false,reading=false,historyBusy=false,selected='power_w',chartData=null,nextBefore=null,olderLoaded=false,events=new Map(),commandNote='';
+const colors={voltage_v:'#79b8ff',current_a:'#86d3a1',power_w:'#dec78c'};
+const number=v=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(2):'—';
+const stamp=t=>new Date(t*1000).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+async function api(path,options={}){const response=await fetch('/lumi/api/'+path,{cache:'no-store',...options});if(response.redirected||!(response.headers.get('content-type')||'').includes('application/json'))throw Error('Phiên dashboard hết hạn. Tải lại trang để đăng nhập.');const data=await response.json();if(!response.ok)throw Error(data.error||'Không kết nối được dịch vụ.');return data}
+function renderHostStatus(){
+ const host=latest?.nixostail,hostFresh=host?.checked_at&&Date.now()/1000-host.checked_at<=30&&!host.stale,hostState=hostFresh?host.state:'unknown';
+ $('hostState').textContent=({online:'Online',checking:'Đang kiểm tra lại',unreachable:'Mất kết nối',unknown:'Chưa rõ'})[hostState]||'Chưa rõ';$('hostState').className=hostState==='online'?'status':hostState==='unreachable'?'error':'muted';
+ $('hostChecked').textContent=(host?.checked_at?'Kiểm tra '+stamp(host.checked_at)+'. ':'')+(host?.last_seen_at&&hostState!=='online'?'Có phản hồi lần cuối '+stamp(host.last_seen_at)+'. ':'')+'Pipi kiểm tra mỗi 10 giây.';
+}
+function renderStatus(){
+ renderHostStatus();
+ const s=latest,c=s?.last_command,pending=c?.result==='pending',waiting=s?.sync_pending===true,unknown=s?.on!==true&&s?.on!==false;
+ $('powerState').textContent=unknown?'Chưa rõ trạng thái':waiting?'MQTT xác nhận '+(s.on?'Bật':'Tắt'):s.on?'Đang bật':'Đang tắt';
+ $('online').textContent=s?.online===true?'Online':'Chưa rõ kết nối';$('online').className=s?.online===true?'status':'muted';
+ $('power').setAttribute('aria-checked',String(s?.on===true));$('switchLabel').textContent=busy||pending?'Đang gửi…':unknown?'Chờ':s.on?'Tắt':'Bật';
+ $('power').disabled=busy||pending||unknown||Boolean(s?.error);
+ for(const key of Object.keys(units))$(key).textContent=number(s?.metrics?.[key]);
+ $('notice').textContent=s?.error||(waiting?'API đang báo '+(s.api_on===true?'Bật':s.api_on===false?'Tắt':'chưa rõ')+'; chưa đồng bộ với xác nhận MQTT. Tạm ẩn thông số cũ.':commandNote||'');$('notice').className='notice '+(s?.error?'error':'muted');
+ $('updated').textContent=(s?.checked_at?'Mẫu mới nhất '+stamp(s.checked_at)+'. ':'')+'Lấy mẫu mỗi 10 giây trên pipi.';
+}
+async function readStatus(){if(reading)return;reading=true;try{latest=await api('status');renderStatus()}catch(e){latest={error:e.message,metrics:{}};renderStatus()}finally{reading=false}}
+$('power').addEventListener('click',async()=>{if(busy||typeof latest?.on!=='boolean')return;const target=!latest.on;busy=true;commandNote='Đang gửi lệnh '+(target?'Bật':'Tắt')+'…';renderStatus();try{const result=await api('power',{method:'POST',headers:{'Content-Type':'application/json','X-Lumi-Control':'1'},body:JSON.stringify({on:target}),signal:AbortSignal.timeout(30000)});commandNote=result.confirmed?'Đã xác nhận '+(result.on?'Bật':'Tắt')+' từ thiết bị.':'Chưa có xác nhận.'}catch(e){commandNote=e.name==='TimeoutError'?'Chưa nhận kết quả; không tự gửi lại. Kiểm tra trạng thái.':e.message}finally{busy=false;await readStatus();await readHistory()}});
+function drawChart(){
+ if(!chartData)return;
+ const points=chartData.points,keys=selected==='all'?Object.keys(units):[selected],valid=v=>typeof v==='number'&&Number.isFinite(v);
+ const svg=$('chart'),width=Math.max(260,svg.clientWidth),height=svg.clientHeight,left=selected==='all'?8:55,right=8,top=15,bottom=15,w=width-left-right,h=height-top-bottom;
+ const scales=Object.fromEntries(keys.map(key=>{const vals=points.map(p=>p[key]).filter(valid);if(!vals.length)return[key,null];const min=Math.min(...vals),max=Math.max(...vals),pad=Math.max((max-min)*.12,Math.abs(max)*.015,.01);return[key,{min,max,lo:min-pad,hi:max+pad}]}));
+ svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.setAttribute('aria-label',keys.map(key=>`${names[key]} (${units[key]})`).join(', ')+' theo thời gian'+(selected==='all'?'; mỗi đường dùng thang đo riêng':''));
+ $('chartFrom').textContent=chartData.first_sample_at?stamp(chartData.first_sample_at):'';$('chartTo').textContent=stamp(chartData.to);
+ $('chartNote').textContent=(selected==='all'?'Mỗi đường dùng thang đo riêng; so sánh xu hướng, không so độ cao giữa các đơn vị. ':'')+`Mỗi điểm: trung bình ${chartData.bucket_seconds} giây. Khoảng trống: thiếu mẫu. Lưu tối đa 30 ngày.`;
+ if(chartData.storage==='cloudflare-d1')$('chartNote').textContent+=' Lịch sử trên Cloudflare D1 · biểu đồ cập nhật tối đa mỗi 30 giây.';
+ $('sampleCount').textContent=chartData.sample_count.toLocaleString('vi-VN')+' mẫu';
+ $('chartLegend').innerHTML=keys.map(key=>{const s=scales[key];return `<span style="color:${colors[key]}">● ${units[key]} · ${s?number(s.lo)+' → '+number(s.hi):'Chưa có dữ liệu'}</span>`}).join('');
+ svg.onpointermove=null;svg.onpointerdown=null;
+ if(!keys.some(key=>scales[key])){svg.innerHTML='';$('chartDetail').textContent='Chưa có dữ liệu hợp lệ trong khoảng này.';return}
+ const x=i=>left+(points.length>1?i/(points.length-1)*w:w/2),y=(v,s)=>top+(s.hi-v)/(s.hi-s.lo)*h;
+ let markup='';
+ for(let i=0;i<3;i++){const py=top+h*(1-i/2);markup+=`<line x1="${left}" y1="${py}" x2="${width-right}" y2="${py}" stroke="#303037"/>`;if(selected!=='all'){const s=scales[selected],v=s.lo+(s.hi-s.lo)*i/2;markup+=`<text x="${left-7}" y="${py+4}" fill="#9797a7" font-size="11" text-anchor="end">${v.toFixed(2)}</text>`}}
+ for(const key of keys){
+  const scale=scales[key];if(!scale)continue;let segment=[];
+  function flush(){if(segment.length===1)markup+=`<circle cx="${segment[0][0]}" cy="${segment[0][1]}" r="3" fill="${colors[key]}"/>`;else if(segment.length)markup+=`<polyline points="${segment.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${colors[key]}" stroke-width="2"/>`;segment=[]}
+  points.forEach((p,i)=>{if(valid(p[key]))segment.push([x(i),y(p[key],scale)]);else flush()});flush();
+ }
+ svg.innerHTML=markup;
+ $('chartDetail').textContent=selected==='all'?'Rê chuột hoặc chạm biểu đồ để xem V / A / W.':`${names[selected]} · thấp ${number(scales[selected].min)} / cao ${number(scales[selected].max)} ${units[selected]}`;
+ const detail=e=>{const rect=svg.getBoundingClientRect(),index=Math.max(0,Math.min(points.length-1,Math.round((e.clientX-rect.left-left)/w*(points.length-1)))),p=points[index];$('chartDetail').textContent=stamp(p.ts)+' · '+keys.map(key=>number(p[key])+' '+units[key]).join(' · ')};
+ svg.onpointermove=detail;svg.onpointerdown=detail;
+}
+function renderEvents(){const container=$('events');container.replaceChildren();const sorted=[...events.values()].sort((a,b)=>b.id-a.id);if(!sorted.length){container.textContent='Chưa có thay đổi trong khoảng này.';return}for(const e of sorted){const row=document.createElement('div');row.className='event';const date=document.createElement('time');date.textContent=stamp(e.ts);date.dateTime=new Date(e.ts*1000).toISOString();const state=document.createElement('span');state.textContent=(e.kind==='command'?'Lệnh web: ':'API ghi nhận: ')+(e.on_state?'Bật':'Tắt');const result=document.createElement('span');result.className='tag';result.textContent={confirmed:'Đã xác nhận',unconfirmed:'Chưa xác nhận',pending:'Đang chờ',observed:'Quan sát'}[e.result]||e.result;row.append(date,state,result);container.append(row)}}
+async function readHistory(before=null){if(historyBusy)return;historyBusy=true;const range=$('range').value;try{const data=await api('history?range='+range+(before?'&before='+before:''));if(range!==$('range').value)return;if(!before){chartData=data;drawChart();if(!olderLoaded){events.clear();nextBefore=data.next_before}}else{olderLoaded=true;nextBefore=data.next_before}for(const e of data.events)events.set(e.id,e);renderEvents();$('older').style.display=nextBefore?'inline-block':'none'}catch(e){$('chartDetail').textContent=e.message}finally{historyBusy=false}}
+$('range').addEventListener('change',()=>{events.clear();olderLoaded=false;nextBefore=null;chartData=null;$('chart').innerHTML='';$('chartDetail').textContent='Đang tải…';readHistory()});
+$('older').addEventListener('click',()=>readHistory(nextBefore));
+document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.metric;document.querySelectorAll('[data-metric]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawChart()}));
+new ResizeObserver(drawChart).observe($('chart'));
+readStatus();readHistory();setInterval(()=>{readStatus();readHistory()},10000);
+setInterval(renderHostStatus,1000);
+</script></html>

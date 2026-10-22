@@ -1,0 +1,41 @@
+{
+  "studio_cask": "2026.2.1.8,rabbit1",
+  "commandlinetools_cask": "15859902",
+  "avd": "Lumi_IoT_API_35",
+  "settings": {
+    "abi.type": "arm64-v8a",
+    "disk.dataPartition.size": "10G",
+    "hw.cpu.ncore": "4",
+    "hw.device.name": "pixel_6",
+    "hw.keyboard": "yes",
+    "hw.ramSize": "2G",
+    "image.sysdir.1": "system-images/android-35/google_apis/arm64-v8a/",
+    "target": "android-35"
+  },
+  "apk_sha256": {
+    "config.pt.apk": "2e8697ab7c23ef5d213fb3cf9d250b5c53d44bc12d3491a971f53faac0ec4a26",
+    "config.de.apk": "6ecca8646580c328a24b7d9b5fec359d82af0ba14c26a4e3b1355f230b93eb2f",
+    "config.xxhdpi.apk": "2a7cb205afe5e89d1e4080c66db2d8f1731deea7ba65d310270b5c592af53b2e",
+    "config.it.apk": "7c0869c9533885b9a678bf90883084f070e30aac27704ffd4db807021e5192e5",
+    "config.ko.apk": "a958222ad873cd5546fa22afc92f4ff650c96dd84812c11eae1e1a1903ffdf92",
+    "config.es.apk": "c5c4bc608de2f242dd13fbdee9d5c38308d62bfcc00e76728c074af66f82df77",
+    "config.th.apk": "cab8a7a94558c3dea030430a4af6993e1494fc3385dd112c4d8d4c58274aeb4f",
+    "config.my.apk": "c8711de2f9542d637049fe0b0ef7ed8c9bf6c3620d5ffb85412f8d9cd02c94ba",
+    "com.lumi.thing.apk": "9e68e7ee29d1ac3c49b89df4ceda7d07722aa0896b2d4a552febdcdef66d2f68",
+    "config.vi.apk": "a3916f8ceb7439d6a4159e37835f96a968ed5e444bf4b7fe984eb8ace47d236d",
+    "config.zh.apk": "6d9df7f4886cb8de4768c1d30941a1f4940cf96ff8b5894a37f1c4b3118f46db",
+    "config.arm64_v8a.apk": "0a72a39e9ae43758f49d54ecb8a43ce135fc42f5119813895494fd200a4f1548",
+    "config.ar.apk": "2ad88a7adc29da1378cb0e599844cf73446115be7cb19880d1ecb80a067dda5c",
+    "config.tr.apk": "8d460b931a546102efe723a9400128e71ae0506a2ee2d73d3b691903662ea4d4",
+    "config.ru.apk": "34d88c300a5a7dd4060c4b804b2ca433b7736088da734c86c6e8703052beb7c7",
+    "config.fr.apk": "7d0855fbf3841b7604be7d83a2b1359459a7911aeb1c463de7d9170decaba4a1",
+    "config.in.apk": "6989fe0519aa6978a8364eb576c09c419bafdf7aa2490cb56ad6adc9ba70cf9d",
+    "config.hi.apk": "a6c033122549566fc3cf3ea19529b88113ee124b43e7f59ffcd7e1771ad1d609",
+    "config.ja.apk": "8e815d0c7634bbefc4c3e6e9be2f8eb39fb9f67362c20aef586bd0e1640eb444",
+    "config.en.apk": "672ed4389e97b388a9e80a9c91b999ded8f604bc5abf57f273ac8410069ac32b"
+  },
+  "frida_version": "17.23.2",
+  "frida_tools_version": "14.11.0",
+  "frida_server_sha256": "059446d4a3516a6e1f7a703500cec2105f05cc81132e07c0640d5f6e55b245ea",
+  "frida_archive_sha256": "6ec50a2d2361c8510c7aa4736b6540f28bb98a337957ff28949f71c8e362ad5b"
+}
