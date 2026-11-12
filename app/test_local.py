@@ -124,7 +124,7 @@ def check():
 
         def request(method, path, body=None, headers=None):
             conn = http.client.HTTPConnection(*listener.server_address, timeout=3)
-            defaults = {'Host': 'dash.huyab.click', 'Origin': 'https://dash.huyab.click', 'Content-Type': 'application/json', 'X-Lumi-Control': '1'}
+            defaults = {'Host': 'dash.huyab.cfd', 'Origin': 'https://dash.huyab.cfd', 'Content-Type': 'application/json', 'X-Lumi-Control': '1'}
             defaults.update(headers or {})
             conn.request(method, path, body, defaults)
             response = conn.getresponse()

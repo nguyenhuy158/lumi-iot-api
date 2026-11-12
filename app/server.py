@@ -13,7 +13,7 @@ from urllib.parse import parse_qs, urlsplit
 import replay
 import d1_sync
 
-ORIGIN = os.environ.get('LUMI_ORIGIN', 'https://dash.huyab.click')
+ORIGIN = os.environ.get('LUMI_ORIGIN', 'https://dash.huyab.cfd')
 DB = Path(os.environ.get('LUMI_DB', '/data/history.sqlite3'))
 POLL_SECONDS = 10
 RETENTION_SECONDS = 30 * 86400
