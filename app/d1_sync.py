@@ -45,7 +45,7 @@ def send_batch(path, config):
                 records.append({'seq': row['seq'], 'kind': row['kind'], 'record': dict(record)})
     if records:
         request = urllib.request.Request(
-            'https://dash.huyab.click/lumi/api/ingest',
+            'https://dash.huyab.cfd/lumi/api/ingest',
             data=json.dumps({'records': records}, allow_nan=False).encode(),
             headers={'Authorization': 'Bearer ' + config['key'], 'Content-Type': 'application/json',
                      'User-Agent': 'Mozilla/5.0 (compatible; LumiHistorySync/1.0)'})

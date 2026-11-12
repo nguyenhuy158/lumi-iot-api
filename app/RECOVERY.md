@@ -1,6 +1,6 @@
 # Khôi phục Lumi và dựng lại Android
 
-Hướng dẫn cho chủ tài khoản Lumi đang dùng trên `dash.huyab.click/devices`.
+Hướng dẫn cho chủ tài khoản Lumi đang dùng trên `dash.huyab.cfd/devices`.
 Không cần Android Studio hoặc simulator để dashboard chạy bình thường.
 Pipi đang dùng credentials lấy từ phiên app; **chưa có tự login/refresh token**.
 Mất mạng không tự làm mất khóa. Chưa xác minh được thời hạn token hay chính sách
@@ -33,7 +33,7 @@ Chạy trên Mac:
 
 ```bash
 rtk proxy ssh pipi 'docker inspect -f "{{.State.Health.Status}}" glance-lumi'
-rtk proxy ssh pipi 'curl -fsS -H "Host: dash.huyab.click" http://127.0.0.1:8766/lumi/api/status'
+rtk proxy ssh pipi 'curl -fsS -H "Host: dash.huyab.cfd" http://127.0.0.1:8766/lumi/api/status'
 rtk proxy ssh pipi 'systemctl status job-nixostail-monitor.timer --no-pager'
 ```
 
